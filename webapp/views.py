@@ -36,7 +36,8 @@ def index(request):
     context = {
         'stocks': stocks
     }
-    return render(request, context=context, template_name='webapp/index.html')
+    return render(request, 'webapp/index.html', context)
+
 
 def candlestick_chart(request):
 
@@ -52,8 +53,9 @@ def candlestick_chart(request):
         close=[obj.close for obj in filtered_qs]
     )])
     stock_names = filtered_qs.values_list('name', flat=True).distinct()
+    stock_name = stock_names[0] if stock_names else "Selected Stock"
     fig.update_layout(
-        title=f'Candlestick Chart for {stock_names[1]}', 
+        title=f'Candlestick Chart for {stock_name}', 
         xaxis_title='Date', 
         yaxis_title='Closing Price',
         )
@@ -70,6 +72,8 @@ def bollinger_bands(request):
     queryset = Stock.objects.all().order_by('date')
     stock_filter = StockFilter(request.GET, queryset=queryset)
     filtered_qs = stock_filter.qs
+    stock_names = list(filtered_qs.values_list('name', flat=True).distinct())
+    stock_name = stock_names[0] if stock_names else "Selected Stock"
 
     # Convert queryset to DataFrame for calculations
     data = {
@@ -84,42 +88,13 @@ def bollinger_bands(request):
     df = calculate_bollinger_bands(df)
     fig = create_bollinger_chart(df)
     stock_names = filtered_qs.values_list('name', flat=True).distinct()
-    fig.update_layout(title=f'Bollinger Bands for {stock_names[1]}', xaxis_title='Date', yaxis_title='Price')
+    fig.update_layout(title=f'Bollinger Bands for {stock_name}', xaxis_title='Date', yaxis_title='Price')
     fig.update_layout(hovermode="x")
     bollinger_bands = plot(fig, output_type='div')
-    return render(request, 'webapp/bolllinger_bands.html', {
+    return render(request, 'webapp/bollinger_bands.html', {
         'filter': stock_filter,
         'bollinger_bands': bollinger_bands
     })
-
-def display_stockdata(request):
-    queryset = Stock.objects.all()
-    df = pd.DataFrame.from_records(queryset.values())
-
-    df['date'] = pd.to_datetime(df['date'])
-
-    fig = go.Figure()
-    colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
-
-    # Group by 'name' or 'symbol'
-    for i, (name, group) in enumerate(df.groupby('name')):  # or groupby('symbol')
-        fig.add_trace(go.Scatter(
-            x=group['date'],
-            y=group['close'],
-            mode='lines',
-            name=str(name),  # <- Making sure it's a string
-            line=dict(color=colors[i % len(colors)])
-        ))
-
-    fig.update_layout(
-        title='Stock Closing Prices Over Time',
-        xaxis_title='Date',
-        yaxis_title='Price'
-    )
-
-    plot_data = plot(fig, output_type="div")
-    context = {"plot_data": plot_data}
-    return render(request, "webapp/stockdata.html", context)
 
 def feedback(request):
     submitted = False
@@ -130,10 +105,10 @@ def feedback(request):
             return HttpResponseRedirect ("/feedback/?submitted=True")
         
     else:
-        form = FeedbackForm
+        form = FeedbackForm()
         if 'submitted' in request.GET:
             submitted = True
-    return render(request, "webapp/feedback.html", {'form': form, 'submittted': submitted})
+    return render(request, "webapp/feedback.html", {'form': form, 'submitted': submitted})
 
     
 

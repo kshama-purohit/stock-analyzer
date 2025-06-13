@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+   <header>
+    <nav class="navbar">
+        {%load static%}
+         <img src = "{% static 'assets/logo_final.png' %}" class = "header-logo" >
+        <ul class="nav-links">
+            <li> <button type = 'button' class = 'navbutton'><a href="/">Home</a></button></li>
+            <li><button type = 'button' class = 'navbutton'><a href="/candlestick_chart">Candlestick Chart</a></button></li>
+            <li><button type = 'button' class = 'navbutton'><a href="/bollinger_bands" >Bollinger Bands</a></button></li>
+            <li><button type = 'button' class = 'navbutton'><a href="/stockdata">Historical Data</a></button></li>
+            <li><button type = 'button' class = 'navbutton'><a href="/feedback">Feedback</a></button></li>
+        </ul>
+    </nav>
+</header>
+
+</body>
+</html>

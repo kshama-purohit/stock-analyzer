@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   {% load static %}
+
+<link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <title>Historic Price Analysis</title>
+</head>
+
+<body>
+    {% include "webapp/header.html" %}
+    <h1>Welcome to my Stock Analyzer</h1>
+    <div class = "overview">
+        <h2> Analyze Stock Trends Effortlessly</h2>
+        <p> Visualize candlestick charts, bollinger bands, and perform comparative analysis! (More coming soon!) </p>
+    </div>
+    <div id="features" class="cards-wrapper">
+    <div class="card">
+        <h4><a href="http://127.0.0.1:8000/candlestick_chart">  Candlestick Charts </h4>
+        </a>
+        <p>Understand market movements with visual price trends.</p>
+    </div>
+    <div class="card">
+        <h4><a href="http://127.0.0.1:8000/bollinger_bands"> Bollinger Bands</a></h4>
+        <p>Analyze volatility and spot potential price breakouts.</p>
+    </div>
+    <div class="card">
+        <h4> <a href="http://127.0.0.1:8000/stockdata"> Historical Data </a></h4>
+        <p>Access detailed stock price history and compare trends.</p>
+    </div>
+    </div>
+
+    <div class="about-section">
+    <h2>About This Tool</h2>
+    <p>This stock analysis tool was developed to help traders and analysts make better decisions using powerful, data-driven charts. Built using Django, Python, and front-end technologies.</p>
+    </div>   
+</div>
+
+</body>
+</html>

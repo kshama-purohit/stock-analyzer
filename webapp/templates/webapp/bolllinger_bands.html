@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+    <title>Stock Chart</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    {% include "webapp/header.html" %}
+    <h1>Bollinger Bands</h1>
+    <div class="filter-chart-wrapper">
+        <div class="filter-panel">
+            <form method="get", class = "filter-form">
+                {{ filter.form.as_p }}
+                <button type="submit", class="feedback-button">Filter</button>
+            </form>
+        </div>
+        <div class = "chart-panel">
+            {{ bollinger_bands |safe }}
+        </div>
+    </div>
+</body>
+</html>

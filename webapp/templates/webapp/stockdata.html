@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+    <meta charset="UTF-8" />
+    <title>title</title>
+</head>
+<body>
+    {% include "webapp/header.html" %}
+    {{ stockdata | safe}} 
+</body>
+</html>

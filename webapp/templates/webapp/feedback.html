@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+</head>
+<body>
+    {% include "webapp/header.html" %}
+    <div class="feedback-container">
+        <div class="feedback-box">
+            <h2>Have Any Feedback?</h2>
+            <br/>
+            {% if submitted %}
+                <p class="feedback-message">Your feedback is important to us. A representative will get in touch with you shortly!</p>
+            {% else %}
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Submit" class="feedback-button">
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>

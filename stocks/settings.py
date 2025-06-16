@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
-import dj_database_url
 import os
+from dotenv import load_dotenv
+
+load_dotenv() 
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,22 +26,27 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECURITY WARNING: don't run with debug turned on in production!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+
+SECRET_KEY = os.getenv("SECRET_KEY")
  
-DEBUG = bool(os.environ.get("DEBUG", default=0))
+DEBUG = bool(os.getenv("DEBUG", default=0))
  
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","127.0.0.1").split(",")
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
 
 DATABASES = {
     'default': {
-        'ENGINE': config('DATABASE_ENGINE'),
-        'NAME': config('DATABASE_NAME'),
-        'USER': config('DATABASE_USERNAME'),
-        'PASSWORD': config('DATABASE_PASSWORD'),
-        'HOST': config('DATABASE_HOST'),
-        'PORT': config('DATABASE_PORT'),
+        'ENGINE': os.getenv('DATABASE_ENGINE'),
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USERNAME'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
     }
 }
+print("ALLOWED_HOSTS (raw):", os.getenv('ALLOWED_HOSTS'))
+print("ALLOWED_HOSTS (split):", os.getenv('ALLOWED_HOSTS', 'localhost').split(','))
+
 
 # Application definition
 
@@ -127,6 +133,7 @@ USE_TZ = True
 # Static files settings
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 
 

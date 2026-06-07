@@ -53,7 +53,9 @@ Covers 10 stocks: `AAPL`, `AMZN`, `GOOGL`, `BA`, `CMG`, `GE`, `JNJ`, `KO`, `SNPS
 
 4. **Load stock data** (in a separate terminal)
    ```bash
-   docker-compose exec web python manage.py loaddata stockdata.json
+   # Download the dataset from Kaggle: https://www.kaggle.com/datasets/camnugent/sandp500
+   # Place all_stocks_5yr.csv in the project root, then run:
+   docker-compose exec web python manage.py runscript load_stocks
    ```
 
    Visit `http://localhost:8000` in your browser.
@@ -95,8 +97,10 @@ Covers 10 stocks: `AAPL`, `AMZN`, `GOOGL`, `BA`, `CMG`, `GE`, `JNJ`, `KO`, `SNPS
    ```
 
 6. **Load stock data**
+
+   Download the dataset from [Kaggle](https://www.kaggle.com/datasets/camnugent/sandp500) and place `all_stocks_5yr.csv` in the project root, then run:
    ```bash
-   python manage.py loaddata stockdata.json
+   python manage.py runscript import_data
    ```
 
 7. **Start the development server**
@@ -107,6 +111,7 @@ Covers 10 stocks: `AAPL`, `AMZN`, `GOOGL`, `BA`, `CMG`, `GE`, `JNJ`, `KO`, `SNPS
    Visit `http://127.0.0.1:8000` in your browser.
 
 ---
+
 
 ## Project Structure
 
@@ -133,8 +138,6 @@ stock-analyzer/
 ├── .gitignore
 └── .dockerignore
 ```
-
----
 
 ## License
 

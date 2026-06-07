@@ -79,7 +79,8 @@ A Django web application for displaying and analyzing historical stock data acro
 
 ## Screenshots
 
-> _Add screenshots of your app here._
+<img width="1896" height="912" alt="image" src="https://github.com/user-attachments/assets/a7e540f3-0c33-42af-aa0a-86f68d52a28a" />
+
 
 ---
 
